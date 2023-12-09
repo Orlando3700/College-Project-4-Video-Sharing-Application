@@ -1,0 +1,57 @@
+* {
+    color: #201955;
+}
+
+#nameInput {
+    background-color: #ffebcd;
+    border: 1px solid #00363f;
+    color: #00363f;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button{
+    color: #182e4a;
+    outline: auto;
+    padding: 10px;
+    background-color: #4CAF50;
+    border: none;
+    cursor: pointer;  
+    
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+#app {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#video-list {
+  margin-bottom: 20px;
+}
+
+form {
+  margin-top: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
