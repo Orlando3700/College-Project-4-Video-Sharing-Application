@@ -5,7 +5,7 @@ var app = express();
 
 // Register the 'session' middleware. The middleware will append
 // the session to the req object of every route
-var sessionMiddleware = require('./Components/session');
+var sessionMiddleware = require('./Logic/session');
 
 //build paths to your files
 const path = require('path');
@@ -47,10 +47,10 @@ global.db = require("./Database/fsdb")(db_connection, schema);
 app.use(sessionMiddleware);
 
 //Routes
- var apiRoutes = require('./Components/Routes');
+ var apiRoutes = require('./Logic/Routes');
  app.use('/auth', apiRoutes);
 
- var videoRoutes = require('./Components/VideoRoute');
+ var videoRoutes = require('./Logic/VideoRoute');
  app.use('/video',videoRoutes);
 
 //Start a server
