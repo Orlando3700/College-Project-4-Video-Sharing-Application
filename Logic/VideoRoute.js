@@ -42,7 +42,6 @@ router.get('/dashboard', checkAuthentication, async (req, res) => {
         const newVideos = JSON.parse(rawData);
 
         res.render('dashboard.pug', {
-            title: 'FIFA',
             video: newVideos,
             isAuthenticated: req.session.isAuthenticated,
             username: req.session.userID
@@ -54,20 +53,17 @@ router.get('/dashboard', checkAuthentication, async (req, res) => {
 });
 
 router.get('/addvideo', checkAuthentication, (req, res) => {
-    res.render('newVideoData.pug', {
-        title: 'FIFA'
+    res.render('videoView.pug', {
     });
 });
 
 router.post('/addvideo', checkAuthentication, (req, res) => {
-    res.render('newVideoForm.pug', {
-        title: 'FIFA'
+    res.render('videoView.pug', {
     });
 
     const { URL, title } = req.body;
     const newVideo = {
         url: URL,
-        title: title,
         username: req.session.userID,
     };
 
