@@ -67,6 +67,7 @@ app.listen(3000, function () {
     console.log('Service running on port 3000!');
 });
 
+//Implement error handling, including for critical parts like starting the server.
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });
