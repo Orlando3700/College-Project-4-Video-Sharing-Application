@@ -1,15 +1,18 @@
 //initialize the use of the express library
-var express = require('express');
+const express = require('express');
 
 // Get an instance of the Router() object
-var router = express.Router();
+const router = express.Router();
 
 // fs module allows us to access the file system.
-const fs = require('fs');
-let newInfo = fs.readFileSync('./Database/videoDB.json');
-let videos = JSON.parse(newInfo);
-
+const fs = require('fs').promises;
 const path = require('path');
+const db = require("./Database/fsdb");
+
+//define a schema for the database
+const dbSchema = {
+    videos: []
+};
 
 //Path is a built-in Node.js module that provides
 //utilities for working with file and directory paths.
@@ -17,73 +20,66 @@ const path = require('path');
 //one or more path segments into a single path.
 //process.cwd() returns the current working directory
 //of the Node.js process.
-const db_conn = path.join(process.cwd(), 'Database', 'videoData.json');
+const dbConnection = path.join(process.cwd(), 'Database', 'videoData.json');
 
-//define a schema for the database
-db_schema = {    videos: []
-}
+global.db = db(dbConnection, dbSchema);
 
-global.db = require("./Database/fsdb")(db_conn, db_schema);
+// Authentication middleware
+const checkAuthentication = (req, res, next) => {
+    if (!req.session.isAuthenticated) {
+        res.send('<script>alert("You must be logged in"); window.location.href = "/auth/login";</script>');
+    } else {
+        next();
+    }
+};
 
 // Register the route to the router object instance
-router.get('/dashboard', (req, res) => {
-
-let rawData = fs.readFileSync('./Database/videoData.json');
-let newVideos = JSON.parse(rawData);
-const path = require('path');
-const db_connection = path.join(process.cwd(), 'Database', 'videoData.json');
-
-//define a schema for the database
-db_schema = {    videos: []
-}
-
 // Before showing the content, check is user is authenticated
 // and restrict access if not logged in.
-global.db = require("../Database/fsdb")(db_conn1, db_schema);
-    if (!req.session.isAuthenticated) {
-        res.send('<script>alert("You must be logged in"); res.redirect = "/auth/login";</script>');
-    } else {
-	
+router.get('/dashboard', checkAuthentication, async (req, res) => {
+    try {
+        const rawData = await fs.readFile(dbConnection, 'utf-8');
+        const newVideos = JSON.parse(rawData);
+
         res.render('dashboard.pug', {
             title: 'FIFA',
             video: newVideos,
             isAuthenticated: req.session.isAuthenticated,
             username: req.session.userID
         });
+    } catch (error) {
+        console.error('Error reading file:', error);
+        res.status(500).send('Internal Server Error');
     }
-    
 });
 
-router.get('/addvideo', (req,res)=>{
-    if (!req.session.isAuthenticated) {
-        res.send('<script>alert("You must be logged in"); res.redirect = "/auth/login";</script>');
-    } else { 
-	
+router.get('/addvideo', checkAuthentication, (req, res) => {
     res.render('newVideoData.pug', {
-        title: "FIFA"
+        title: 'FIFA'
     });
-}})
+});
 
-router.post('/addvideo', (req,res)=>{
-    res.render('newVideoForm.pug',{
-    title: "FIFA"});
+router.post('/addvideo', checkAuthentication, (req, res) => {
+    res.render('newVideoForm.pug', {
+        title: 'FIFA'
+    });
 
-    const {URL, title} = req.body;
-
-    addvideo = {
-        url : URL,
+    const { URL, title } = req.body;
+    const newVideo = {
+        url: URL,
         title: title,
         username: req.session.userID,
-    }
-db.model.videos.push(new_video);
-    db.update();
- });   
+    };
 
-router.get('/database', (req, res) =>{
-    res.json({videos: db.model.videos});
-})
+    db.model.videos.push(newVideo);
+    db.update();
+});
+
+router.get('/database', (req, res) => {
+    res.json({ videos: db.model.videos });
+});
 
 // To make the routes available we need to export the router object.
 // now the router object can be imported by other modules in our applications.
-module.exports = router
+module.exports = router;
 
