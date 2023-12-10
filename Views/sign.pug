@@ -1,10 +1,18 @@
-html 
-    head 
-        title #{title}
-            link(rel="stylesheet", href="/resource/styles.css")
-            script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js") 
-    body
-        .form
-            a(href="/auth/login") Log In
-            a(href="/video/newVideo") Upload Video
-            a(href="/video/dashboard") Dashboard
+html
+  head
+    title #{title}
+    link(rel="stylesheet", href="/resource/styles.css")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js") 
+  body
+    nav
+      a(href="/auth/login") Log In
+      a(href="/video/newVideo") Upload Video
+      a(href="/video/dashboard") Dashboard
+    .container
+      form(action="/auth/sign", method="POST")
+        input.input-box(type="text", name="name", required)
+        input.input-box(type="text", name="username", required)
+        input.input-box(type="text", name="email", required)
+        input.input-box(type="password", name="password", required)
+        input.button(type="submit", name="signup", value="Sign Up")
+
