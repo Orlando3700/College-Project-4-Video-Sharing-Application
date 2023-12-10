@@ -37,7 +37,7 @@ router.post('/login', (req, res) => {
     const userData = global.db.users.find(user => user.Username === username && user.Password === password);
 
     if (userData) {
-        console.log("User found");
+        console.log("User is available");
         console.log(userData);
 
         req.session = req.session || {};
