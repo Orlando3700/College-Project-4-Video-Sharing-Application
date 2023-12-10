@@ -11,7 +11,7 @@ const app = express();
 // Register the 'session' middleware. The middleware will append
 //the session to the req object of every route (i.e. req.session)
 app.use (session( {
-secret: 'SomeSecretCode##LoadFromEnviromentVariable', 
+secret: 'secretKey', 
 saveUninitialized: true, 
 resave: false,
 cookie: { maxAge: 60000 }})
@@ -23,14 +23,20 @@ const videoRoutes = require('./routes/video');
 app.use('/auth', authRoutes);
 app.use('/video', videoRoutes);
 
+//location of database.json
+// Specify where the database file is stored
+db_connection = __dirname + "/Database/database.json"
 
-// Simulate a database connection with user credentials
-global. db = {
-user : {
-username : "tom", 
-passcode: "CUS1172"
+// define a schema (i.e. a JSON object) for the database.
+schema = {    users: []
 }
-};
+
+//providing database connection
+global.db = require("./Database/fsdb")(db_connection, schema);
+
+// Register the 'session' middleware.
+app.use(sessionMiddleware);
+
 // User need to authenticate.
 // Typically user credentials should be passed through a secure POST request
 app. get('/login/:user/:passcode', (req, res) => {
@@ -63,7 +69,7 @@ app. get('/private', (req, res)=>{
 // and restrict access if not logged in.
 if (!req.session.isAuthenticated) {
 
-res.send("I do not know who you are? "); 
+res.send("User unavailable "); 
 return;
 }
 // User is logged in, so show the private content.
