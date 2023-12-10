@@ -1,6 +1,7 @@
-{"users":[{"Email":"miguel@gmail.com","Name":"miguel","Username":"Miguel","Password":"22222"},
-{"Email":"jake@gmail.com","Name":"Jake","Username":"jake","Password":"12345"},
-{"Email":"hailey.gmail.com","Name":"Hailey","Username":"hailey","Password":"33333"},
-{"Email":"amanda@gmail.com","Name":"Amanda","Username":"amanda","Password":"11111"},
-{"Email":"nicki@gmail.com","Name":"Nicki","Username":"nicki","Password":"55555"},
-{"Email":"mike@gmail.com","Name":"Mike","Username":"mike","Password":"54321"}]}
+{"users":[
+{"Name":"miguel","Username":"Miguel","Password":"22222","Email":"miguel@gmail.com"},
+{"Name":"Jake","Username":"jake","Password":"12345","Email":"jake@gmail.com"},
+{"Name":"Hailey","Username":"hailey","Password":"33333","Email":"hailey.gmail.com"},
+{"Name":"Amanda","Username":"amanda","Password":"11111","Email":"amanda@gmail.com"},
+{"Name":"Nicki","Username":"nicki","Password":"55555","Email":"nicki@gmail.com"},
+{"Name":"Mike","Username":"mike","Password":"54321","Email":"mike@gmail.com",}]}
