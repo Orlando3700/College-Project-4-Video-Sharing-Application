@@ -1,0 +1,23 @@
+html
+  head
+    title #{title}
+    link(rel="stylesheet", href="/resource/style.css")
+  body
+    h1 Upload a Video
+
+    form(action="/video/upload", method="POST", enctype="multipart/form-data")
+      a(href="/video/dashboard") Dashboard
+      a(href="/video/new_video") Upload
+
+      label(for="videoFile") Choose a video file:
+      input(type="file", name="videoFile", id="videoFile", accept="video/*", required)
+
+      label(for="videoTitle") Video Title:
+      input(type="text", name="videoTitle", id="videoTitle", required)
+
+      label(for="description") Description:
+      textarea(name="description", id="description", rows="4", required)
+
+      button(type="submit") Upload
+
+      
