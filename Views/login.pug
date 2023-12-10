@@ -1,6 +1,17 @@
 html
   head
+    title #{title}
     link(rel="stylesheet", href="/resource/styles.css")
   body
-    h1 Theres a new Account
-    a(href="/auth/login") Log In
+    a(href="/video/newVideo") Upload Video
+    a(href="/video/dashboard") Dashboard
+    h2 FIFA
+    h3 Start uploading clips from the 2022 FIFA World Cup
+    form(action="/auth/login", method="post")
+      input.input-box(type="text", name="username", required)
+      input.input-box(type="password", name="password", required)
+      input.button(type="submit", name="login", value="Login")
+    .sign
+      p Click the link below if you don't have an account
+      a(href="/auth/register") Sign up
+
