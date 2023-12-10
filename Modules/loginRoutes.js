@@ -34,23 +34,25 @@ router.get('/login', (req, res) => {
 
 router.post('/login', (req, res) => {
     const { username, password } = req.body;
-    const userData = global.db.users.find(user => user.Username === username && user.Password === password);
+    const user = global.db.users.find(u => u.Username === username && u.Password === password);
 
     if (userData) {
-        console.log("User is available");
-        console.log(userData);
-
-        req.session = req.session || {};
-        req.session.userID = userData.Username;
-        req.session.userEmail = userData.Email;
-        req.session.isAuthenticated = true;
-        console.log('new session');
-        res.redirect('/video/dashboard');
-        console.log('session Data: ', req.sessionID);
-    } else {
-        console.log("User not available");
-        res.redirect('/auth/login?error=WrongSignature');
+        console.log("User is not available");
+        return res.redirect('/auth/login?error=WrongSignIn');
     }
+
+    console.log("User is available");
+    console.log(user);
+
+    req.session = req.session || {};
+    req.session.userID = user.Username;
+    req.session.userEmail = user.Email;
+    req.session.isAuthenticated = true;
+
+    console.log('New session');
+    console.log('Session Data:', req.sessionID);
+
+    res.redirect('/video/dashboard');
 });
 
 function renderLoginTemplate(req, res) {
@@ -71,7 +73,7 @@ router.get('/logout', (req, res) => {
                 res.status(500).send(err.message);
             } else {
                 console.log("Session closed");
-				// Create a logout.pug template
+		// Create a logout.pug template
                 res.render('logout.pug');
             }
         });
