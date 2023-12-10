@@ -52,12 +52,12 @@ router.get('/dashboard', checkAuthentication, async (req, res) => {
     }
 });
 
-router.get('/addvideo', checkAuthentication, (req, res) => {
+router.get('/newVideo', checkAuthentication, (req, res) => {
     res.render('videoView.pug', {
     });
 });
 
-router.post('/addvideo', checkAuthentication, (req, res) => {
+router.post('/newVideo', checkAuthentication, (req, res) => {
     res.render('videoView.pug', {
     });
 
