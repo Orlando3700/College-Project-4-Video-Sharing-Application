@@ -6,7 +6,7 @@ const path = require('path');
 
 // Register the 'session' middleware. The middleware will append
 // the session to the req object of every route
-const sessionMiddleware = require('./Logic/session');
+const middlewareSession = require('./Logic/session');
 
 //Routes
 const apiRoutes = require('./Logic/Routes');
@@ -55,7 +55,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Register the 'session' middleware.
-app.use(sessionMiddleware);
+app.use(middlewareSession);
 
 //Routes
 app.use('/auth', apiRoutes);
