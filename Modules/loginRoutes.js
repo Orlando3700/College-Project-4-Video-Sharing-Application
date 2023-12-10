@@ -29,7 +29,6 @@ router.get('/login', (req, res) => {
         login_main: '/login',
     };
     res.render('login.pug', {
-        title: "FIFA",
     });
 });
 
@@ -57,7 +56,6 @@ router.post('/login', (req, res) => {
 function renderLoginTemplate(req, res) {
     const { username, password } = req.session.loginInfo;
     res.render('login.pug', {
-        title: "FIFA",
         username,
         password,
     });
@@ -96,7 +94,6 @@ const db = new DatabaseHandler(dbPath, dbSchema);
 // Sign route
 router.get('/sign', (req, res) => {
     res.render('sign.pug', {
-        title: "Sign"
     });
 });
 
@@ -120,7 +117,7 @@ router.post('/add', async (req, res) => {
             Name: name,
             Username: username,
             Password: password,
-			Email: email
+            Email: email
         };
 
         // Add the new user to the existing users
