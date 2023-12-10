@@ -1,8 +1,11 @@
+const express = require( "express");
+
+// Module to handle sessions
 const session = require('express-session');
 const app = express();
 
 // Register the 'session' middleware. The middleware will append
-//the session to the req object of every route (i.e. req.session)
+// the session to the req object of every route (i.e. req.session)
 const middlewareSession=(session({
     secret: "secretKey",
     saveUninitialized: true,
